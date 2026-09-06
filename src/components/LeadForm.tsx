@@ -1,6 +1,7 @@
 import { useState } from "react";
 import { ArrowRight, CheckCircle2, AlertCircle, Loader2 } from "lucide-react";
 import { Button } from "@/components/ui/button";
+import { supabase } from "@/lib/supabase";
 
 type Step = "contact" | "questions" | "done";
 
@@ -105,27 +106,31 @@ export default function LeadForm() {
       setSubmitting(true);
       setSubmitError("");
       try {
-        const payload = {
-          email: email.trim(),
+        if (!supabase) {
+          throw new Error(
+            "Waitlist storage is not configured. Please contact hello@athleticaapp.com."
+          );
+        }
+
+        const { error } = await supabase.from("waitlist_submissions").insert({
+          email: email.trim().toLowerCase(),
           whatsapp: whatsapp.trim(),
           ...newAnswers,
-        };
-
-        const res = await fetch("/api/waitlist", {
-          method: "POST",
-          headers: { "Content-Type": "application/json" },
-          body: JSON.stringify(payload),
         });
 
-        if (!res.ok) {
-          throw new Error("Server error");
+        if (error) {
+          throw new Error(error.message);
         }
 
         setStep("done");
       } catch (err) {
-        console.warn("API submission error, proceeding with success UX:", err);
-        // Ensure user experience completes smoothly even if offline or missing API backend
-        setStep("done");
+        // Never show a success screen for a submission we failed to store.
+        console.error("Waitlist submission failed:", err);
+        setSubmitError(
+          err instanceof Error && err.message
+            ? `We couldn't save your details: ${err.message}. Please try again.`
+            : "We couldn't save your details. Please check your connection and try again."
+        );
       } finally {
         setSubmitting(false);
       }
