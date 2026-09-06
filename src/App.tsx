@@ -1,5 +1,6 @@
 import { useState } from "react";
 import { Switch, Route } from "wouter";
+import { Analytics } from "@vercel/analytics/react";
 import LandingPage from "@/pages/LandingPage";
 import FormPage from "@/pages/FormPage";
 import NotFoundPage from "@/pages/NotFoundPage";
@@ -16,6 +17,7 @@ export default function App() {
         <Route path="/form" component={FormPage} />
         <Route component={NotFoundPage} />
       </Switch>
+      <Analytics />
     </>
   );
 }
