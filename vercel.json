@@ -16,6 +16,10 @@
       "dest": "/api/$1"
     },
     {
+      "src": "/privacy-policy/?",
+      "dest": "/privacy-policy.html"
+    },
+    {
       "handle": "filesystem"
     },
     {
