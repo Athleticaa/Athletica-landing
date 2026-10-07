@@ -1,11 +1,11 @@
-export default function Footer() {
+export default function Footer({ landingPageHref = "" }: { landingPageHref?: string }) {
   return (
     <footer className="border-t border-[#1E1E2E] bg-[#0A0A0F] pt-14 pb-8 px-4 sm:px-6 lg:px-8">
       <div className="max-w-7xl mx-auto">
         <div className="grid grid-cols-2 md:grid-cols-4 gap-8 mb-12">
           {/* Col 1: Brand Info */}
           <div className="col-span-2 md:col-span-1">
-            <a href="#home" className="flex items-center gap-2 mb-4">
+            <a href={`${landingPageHref}#home`} className="flex items-center gap-2 mb-4">
               <img
                 src="/images/athletica.svg"
                 alt="Athletica"
@@ -33,22 +33,22 @@ export default function Footer() {
             </h4>
             <ul className="space-y-2 text-xs">
               <li>
-                <a href="#features" className="text-[#8B8B9E] hover:text-white transition-colors">
+                <a href={`${landingPageHref}#features`} className="text-[#8B8B9E] hover:text-white transition-colors">
                   Features
                 </a>
               </li>
               <li>
-                <a href="#solution" className="text-[#8B8B9E] hover:text-white transition-colors">
+                <a href={`${landingPageHref}#solution`} className="text-[#8B8B9E] hover:text-white transition-colors">
                   Before vs After
                 </a>
               </li>
               <li>
-                <a href="#waitlist" className="text-[#8B8B9E] hover:text-white transition-colors">
+                <a href={`${landingPageHref}#waitlist`} className="text-[#8B8B9E] hover:text-white transition-colors">
                   Pilot Program
                 </a>
               </li>
               <li>
-                <a href="#faq" className="text-[#8B8B9E] hover:text-white transition-colors">
+                <a href={`${landingPageHref}#faq`} className="text-[#8B8B9E] hover:text-white transition-colors">
                   FAQ
                 </a>
               </li>
